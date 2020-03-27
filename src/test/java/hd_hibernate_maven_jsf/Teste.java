@@ -59,12 +59,12 @@ public class Teste {
 
 	@Test
 	public void testeUpdate() {
-		String id = JOptionPane.showInputDialog("digite um Id");
+		String id = JOptionPane.showInputDialog("digite um ID");
 
 		DaoGeneric<Cliente> daoGeneric = new DaoGeneric<Cliente>();
 		Cliente cliente = daoGeneric.pesquisar(Long.parseLong(id), Cliente.class);// Carrega o objeto para Editar
 
-		if (cliente != null) {
+		if (cliente != null) {//verifica se o objeto pesquisado no banco é nullo
 
 			cliente.setNome("Paulo");
 			cliente.setTelefone("(85 9 8560-0987)");
