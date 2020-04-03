@@ -1,28 +1,28 @@
 package hd.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class Endereco {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String bairro;
 	private String rua;
 	private String numeroCasa;
-	private String cep;
-	private String observacao;
+	private String referencia;
 
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
-	// @Column(name = "cliente_id")
+	// tem que ser deu um cliente um relacionamento de muito para um.
 	private Cliente cliente;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}
@@ -31,6 +31,8 @@ public class Endereco {
 		this.id = id;
 	}
 
+	// column(nulable = false ) torna o valor ser obrigatorio.
+	@Column(nullable = false)
 	public String getBairro() {
 		return bairro;
 	}
@@ -39,6 +41,7 @@ public class Endereco {
 		this.bairro = bairro;
 	}
 
+	@Column(nullable = false)
 	public String getRua() {
 		return rua;
 	}
@@ -47,6 +50,7 @@ public class Endereco {
 		this.rua = rua;
 	}
 
+	@Column(nullable = false)
 	public String getNumeroCasa() {
 		return numeroCasa;
 	}
@@ -55,28 +59,23 @@ public class Endereco {
 		this.numeroCasa = numeroCasa;
 	}
 
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-
-	public String getObservacao() {
-		return observacao;
-	}
-
-	public void setObservacao(String observacao) {
-		this.observacao = observacao;
-	}
-
+	@JoinColumn(name = "cliente_id")
+	@ManyToOne(optional = false, fetch = FetchType.EAGER)
 	public Cliente getCliente() {
 		return cliente;
 	}
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	@Column(nullable = false)
+	public String getReferencia() {
+		return referencia;
+	}
+
+	public void setReferencia(String referencia) {
+		this.referencia = referencia;
 	}
 
 }

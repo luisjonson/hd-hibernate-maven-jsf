@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import hd.model.Cliente;
 import hd.util.HibernateUtil;
 
 public class DaoGeneric<E> {
@@ -21,7 +22,7 @@ public class DaoGeneric<E> {
 	public E updateMerge(E entidade) { // salva ou atualiza
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
-		E entidadeSalva = entityManager.merge(entidade);// salva, atualiza e retorna o objeto
+		E entidadeSalva = entityManager.merge(entidade);
 		transaction.commit();
 
 		return entidadeSalva;
@@ -37,24 +38,23 @@ public class DaoGeneric<E> {
 
 	}
 
-	public E pesquisar(Long id, Class<E> entidade) {
-		E e = (E) entityManager.find(entidade, id); //ID = a Pk e o Entidade  e a Class do Objeto 
+	public E pesquisar(Long id, Class<Cliente> class1) {
+		E e = (E) entityManager.find(class1, id);
 		return e;
 
 	}
 
 	public void deletarPoId(E entidade) throws Exception {
 
-		Object id = HibernateUtil.getPrimaryKey(entidade);//obtem o ID do Objeto PK
+		Object id = HibernateUtil.getPrimaryKey(entidade);
 
-		EntityTransaction transaction = entityManager.getTransaction();//Objeto de transação
-		transaction.begin();//começa uma transação no banco de dados
+		EntityTransaction transaction = entityManager.getTransaction();
+		transaction.begin();
 
 		entityManager
 				.createNativeQuery(
-						"delete from " + entidade.getClass().//Monta a Query para  delele
-						getSimpleName().toLowerCase() + " where id =" + id)
-				.executeUpdate(); // Executa o delete no banco de dados
+						"delete from " + entidade.getClass().getSimpleName().toLowerCase() + " where id =" + id)
+				.executeUpdate(); // faz delete
 		transaction.commit();// grava alteração no banco
 
 	}
@@ -62,9 +62,9 @@ public class DaoGeneric<E> {
 	public List<E> listar(Class<E> entidade) {
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
-		List<E> lista = entityManager.
-				createQuery("from " + entidade.getName())//Cria a query de consulta
-				.getResultList();// Retorna a lista de objetos consultas
+
+		List<E> lista = entityManager.createQuery("from " + entidade.getName()).getResultList();
+
 		transaction.commit();
 
 		return lista;

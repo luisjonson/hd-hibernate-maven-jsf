@@ -16,8 +16,11 @@ public class Cliente {
 	private Long id;
 	private String nome;
 	private String telefone;
+
+	// faz o mapeamneto do cliente na classe endereço.
+	// faz o carregamento junto com os endereços.
 	@OneToMany(mappedBy = "cliente")
-	private List<Endereco> endereco;
+	private List<Endereco> enderecos;
 
 	public Long getId() {
 		return id;
@@ -41,6 +44,14 @@ public class Cliente {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
 	}
 
 }

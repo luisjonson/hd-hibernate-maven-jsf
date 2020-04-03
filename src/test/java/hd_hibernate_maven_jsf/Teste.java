@@ -1,10 +1,10 @@
 package hd_hibernate_maven_jsf;
 
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 import org.junit.Test;
-
-import com.sun.faces.facelets.tag.jsf.EditableValueHolderRule;
 
 import hd.dao.DaoGeneric;
 import hd.model.Cliente;
@@ -29,13 +29,15 @@ public class Teste {
 
 	@Test
 	public void testeEndereco() {
+
 		DaoGeneric daoGeneric = new DaoGeneric();
 
-		Cliente cliente = (Cliente) daoGeneric.pesquisar(3L, Endereco.class);
+		Cliente cliente = (Cliente) daoGeneric.pesquisar(3L, Cliente.class);
 		Endereco endereco = new Endereco();
-		endereco.setBairro("carlito");
-		endereco.setRua("rua teste");
+		endereco.setBairro("jõar");
+		endereco.setRua("rua");
 		endereco.setNumeroCasa("3004");
+		endereco.setReferencia("");
 		endereco.setCliente(cliente);
 
 		daoGeneric.salvar(endereco);
@@ -64,10 +66,10 @@ public class Teste {
 		DaoGeneric<Cliente> daoGeneric = new DaoGeneric<Cliente>();
 		Cliente cliente = daoGeneric.pesquisar(Long.parseLong(id), Cliente.class);// Carrega o objeto para Editar
 
-		if (cliente != null) {//verifica se o objeto pesquisado no banco é nullo
+		if (cliente != null) {// verifica se o objeto pesquisado no banco é nullo
 
-			cliente.setNome("Paulo");
-			cliente.setTelefone("(85 9 8560-0987)");
+			cliente.setNome(JOptionPane.showInputDialog("Digite o nome do cliente "));
+			cliente.setTelefone(JOptionPane.showInputDialog("Digite o numero do telefone "));
 			cliente = daoGeneric.updateMerge(cliente);// Atualiza no banco de dados
 			System.out.println("O cliente do ID " + cliente.getId() + " Do nome " + cliente.getNome() + "Foi aterado.");
 
@@ -76,4 +78,15 @@ public class Teste {
 			System.out.println("Clienete não encontrado");
 		}
 	}
+
+	/*
+	 * @Test public void testeNameQUery2() { DaoGeneric<Cliente> daoGeneric = new
+	 * DaoGeneric<Cliente>(); List<Cliente> list =
+	 * daoGeneric.getEntityMaager().createNameQuery("Cliente.buscaPorNome")
+	 * .setParameter("nome", "Paulo").getResultList();
+	 * 
+	 * for(Cliente cliente : list) { System.out.println(cliente);
+	 * 
+	 * } }
+	 */
 }
