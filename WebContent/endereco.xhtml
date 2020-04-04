@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+
+<h:body>
+	<h:form id="formulario">
+		<h:messages showDetail="true" showSummary="false" id="msg" />
+		<h:panelGrid columns="2">
+			<h:outputLabel>ID: </h:outputLabel>
+			<h:inputText readonly="true"
+				value="#{enderecoManagedBean.endereco.id}" />
+
+			<h:outputLabel>Bairro: </h:outputLabel>
+			<h:inputText value="#{enderecoManagedBean.endereco.bairro}"
+				required="true" requiredMessage="Informe o nome" />
+
+			<h:outputLabel>Rua: </h:outputLabel>
+			<h:inputText value="#{enderecoManagedBean.endereco.rua}" />
+
+			<h:outputLabel>Numero: </h:outputLabel>
+			<h:inputText value="#{enderecoManagedBean.endereco.numeroCasa}" />
+
+			<h:outputLabel>Referência: </h:outputLabel>
+			<h:inputTextarea value="#{enderecoManagedBean.endereco.referencia}" />
+
+		</h:panelGrid>
+
+		<br></br>
+		<h:commandButton value="Salva" action="#{enderecoManagedBean.salvar}" />
+		<h:commandButton value="Novo" action="#{enderecoManagedBean.novo}" />
+
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+
+<h:body>
+	<h:form>
+		<!-- cria um menu vazio -->
+		<p:breadCrumb>
+
+			<p:menuitem />
+
+			<p:menuitem value="Cadastro De Cliente" action="index.jsf" />
+			<p:menuitem value="Cadastro de Funcionario" action="funcionario.jsf" />
+		</p:breadCrumb>
+
+	</h:form>
+	<h:graphicImage url="resources/img/vetorhd.png" width="70px"
+		height="100px" />
+	<h1>HD Raçoes</h1>
+	<h:form id="formulario">
+		<!-- h:messages pega todas as mensagem da tela.  -->
+		<h:messages showDetail="true" showSummary="false" id="msg" />
+		<h:panelGrid columns="2">
+
+
+			<h:outputLabel>Nome: </h:outputLabel>
+			<h:inputText value="#{clienteManegedBean.cliente.nome}"
+				required="true" requiredMessage="Informe o nome" />
+
+			<h:outputLabel>telefone: </h:outputLabel>
+			<h:inputText value="#{clienteManegedBean.cliente.telefone}" />
+
+		</h:panelGrid>
+
+		<br></br>
+		<h:commandButton value="Salva" action="#{clienteManegedBean.salvar}" />
+
+
+	</h:form>
+
+
+</h:body>
+</html>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+
+<h:body>
+	<h:form>
+		<!-- cria um menu vazio -->
+		<p:breadCrumb>
+
+			<p:menuitem />
+			<p:menuitem value="Home" action="inicial.jsf" />
+			<p:menuitem value="Cadastro De Cliente" action="index.jsf" />
+			<p:menuitem value="Cadastro de Funcionario" action="funcionario.jsf" />
+		</p:breadCrumb>
+
+	</h:form>
+	<h:graphicImage url="resources/img/vetorhd.png" width="70px"
+		height="100px" />
+	<h1>HD Raçoes</h1>
+	<h:form id="formulario">
+		<!-- h:messages pega todas as mensagem da tela.  -->
+		<h:messages showDetail="true" showSummary="false" id="msg" />
+		<h:panelGrid columns="2">
+			<h:outputLabel>Id</h:outputLabel>
+			<h:inputText readonly="true" value="#{clienteManegedBean.cliente.id}" />
+
+			<h:outputLabel>Nome: </h:outputLabel>
+			<h:inputText value="#{clienteManegedBean.cliente.nome}"
+				required="true" requiredMessage="Informe o nome" />
+
+			<h:outputLabel>telefone: </h:outputLabel>
+			<h:inputText value="#{clienteManegedBean.cliente.telefone}" />
+
+		</h:panelGrid>
+
+		<br></br>
+		<h:commandButton value="Salva" action="#{clienteManegedBean.salvar}" />
+		<h:commandButton value="Novo" action="#{clienteManegedBean.novo}" />
+
+	</h:form>
+
+	<!-- _________________________________formTable_____________________________ -->
+	<h:form id="formtable">
+		<h:dataTable value="#{clienteManegedBean.list}" var="client"
+			cellpadding="15" border="1">
+			<f:facet name="header">Lista de Cliente</f:facet>
+			<br></br>
+			<h:column>
+				<f:facet name="header">Id</f:facet>
+				<h:outputText value="#{client.id}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+				<h:outputText value="#{client.nome}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Telefone: </f:facet>
+				<h:outputText value="#{client.telefone}" />
+			</h:column>
+
+
+
+			<h:column>
+				<f:facet name="header">Editar</f:facet>
+				<h:commandLink immediate="true" id="botaoeditar">
+					<h:graphicImage url="resources/img/edite.png" width="30"
+						height="50" />
+					<!-- value é referente a  <h:dataTable value="#{clienteManegedBean.list}" var="client"-->
+					<f:setPropertyActionListener value="#{client}"
+						target="#{clienteManegedBean.cliente}" />
+					<f:ajax execute="botaoeditar" render="@form :formulario:msg" />
+				</h:commandLink>
+
+			</h:column>
+			<h:column>
+				<f:facet name="header">Delete</f:facet>
+				<h:commandLink immediate="true"
+					action="#{clienteManegedBean.remove}" id="butaoremover">
+					<h:graphicImage url="resources/img/delete-icon.png" width="30"
+						height="25" />
+					<f:setPropertyActionListener value="#{client}"
+						target="#{clienteManegedBean.cliente}" />
+				</h:commandLink>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Endereço</f:facet>
+				<h:commandLink immediate="true" id="butaoEndereco">
+					<h:graphicImage url="resources/img/icon-casa.jpg" width="50"
+						height="25" />
+					<f:param name="codigouser" value="#{endereco.id}" />
+				</h:commandLink>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>
